@@ -21,7 +21,7 @@ install:
 run:
     steps:
         - 'lava-test-case fetch-libsocketcan --shell wget http://www.pengutronix.de/software/libsocketcan/download/libsocketcan-0.0.8.tar.bz2'
-        - 'mkdir -p libsocketcan
+        - 'mkdir -p libsocketcan'
         - 'lava-test-case extract-libsocketcan --shell tar -xaf libsocketcan-0.0.8.tar.bz2 -C libsocketcan --strip-components=1'
         - 'cd libsocketcan'
         - 'lava-test-case configure-libsocketcan --shell ./configure'
@@ -37,4 +37,5 @@ run:
         - 'lava-test-case exec-canconfig --shell canconfig --help'
         - 'lava-test-case exec-candump --shell candump --help'
         - 'lava-test-case exec-cansend --shell cansend --help'
+        - 'lava-test-case exec-cansend --shell canecho --help'
         - 'lava-test-case exec-cansequence --shell cansequence --help'
