@@ -1,0 +1,14 @@
+metadata:
+    name: install-canutils
+    format: "Lava-Test-Shell Test Definition 1.0"
+    description: "Configures, builds, and installs libsocketcan and canutils"
+    maintainer:
+        - tyler.baker@linaro.org
+    devices:
+        - beaglebone-black
+
+run:
+    steps:
+        - 'lava-test-case down-can0 --shell canconfig can0 stop'
+        - 'lava-test-case loopback-can0 --shell canconfig can0 bitrate 500000 ctrlmode triple-sampling on listen-only on'
+        - 'lava-test-case start-can0 --shell canconfig can0 start'
