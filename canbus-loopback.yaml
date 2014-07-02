@@ -10,5 +10,5 @@ metadata:
 run:
     steps:
         - 'lava-test-case down-can0 --shell canconfig can0 stop'
-        - 'lava-test-case loopback-can0 --shell canconfig can0 bitrate 500000 ctrlmode triple-sampling on listen-only on'
+        - 'lava-test-case loopback-can0 --shell canconfig can0 bitrate 100000 ctrlmode triple-sampling on loopback on'
         - 'lava-test-case start-can0 --shell canconfig can0 start'
