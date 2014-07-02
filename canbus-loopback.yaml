@@ -1,7 +1,7 @@
 metadata:
-    name: install-canutils
+    name: canbus-loopback
     format: "Lava-Test-Shell Test Definition 1.0"
-    description: "Configures, builds, and installs libsocketcan and canutils"
+    description: "Setup canbus loopback interface"
     maintainer:
         - tyler.baker@linaro.org
     devices:
