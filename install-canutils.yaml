@@ -1,0 +1,40 @@
+metadata:
+    name: install-canutils
+    format: "Lava-Test-Shell Test Definition 1.0"
+    description: "Configures, builds, and installs libsocketcan and canutils"
+    maintainer:
+        - tyler.baker@linaro.org
+    devices:
+        - beaglebone-black
+
+install:
+    deps:
+        - build-essential
+        - autoconf
+        - automake
+        - libtool
+        - pkg-config
+        - ntp
+        - git
+        - wget
+
+run:
+    steps:
+        - 'lava-test-case fetch-libsocketcan --shell wget http://www.pengutronix.de/software/libsocketcan/download/libsocketcan-0.0.8.tar.bz2'
+        - 'mkdir -p libsocketcan
+        - 'lava-test-case extract-libsocketcan --shell tar -xaf libsocketcan-0.0.8.tar.bz2 -C libsocketcan --strip-components=1'
+        - 'cd libsocketcan'
+        - 'lava-test-case configure-libsocketcan --shell ./configure'
+        - 'lava-test-case build-libsocketcan --shell make CFLAGS=-Wno-error'
+        - 'lava-test-case install-libsocketcan --shell make install'
+        - 'cd ..'
+        - 'lava-test-case clone-canutils --shell git clone http://git.pengutronix.de/git/tools/canutils.git'
+        - 'cd canutils'
+        - 'lava-test-case autogen-canutils --shell ./autogen.sh'
+        - 'lava-test-case configure-canutils --shell ./configure'
+        - 'lava-test-case build-canutils --shell make'
+        - 'lava-test-case install-canutils --shell make install'
+        - 'lava-test-case exec-canconfig --shell canconfig --help'
+        - 'lava-test-case exec-candump --shell candump --help'
+        - 'lava-test-case exec-cansend --shell cansend --help'
+        - 'lava-test-case exec-cansequence --shell cansequence --help'
