@@ -1,0 +1,16 @@
+metadata:
+    name: load-cape-fragment
+    format: "Lava-Test-Shell Test Definition 1.0"
+    description: "Loads a cape fragment at runtime"
+    maintainer:
+        - tyler.baker@linaro.org
+    devices:
+        - beaglebone-black
+
+params:
+    CAPE: BB-BONE-SERL-01:00A1
+
+run:
+    steps:
+        - 'export CAPE_MGR=$(ls /sys/devices | grep cape)'
+        - 'lava-test-case add-cape --shell echo $CAPE > /sys/devices/$CAPE_MGR/slots'
