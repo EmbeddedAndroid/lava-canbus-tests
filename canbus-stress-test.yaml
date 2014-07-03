@@ -18,5 +18,7 @@ run:
         - 'mount $DEVICE ~/tmp/'
         - 'cd ~/tmp/'
         - 'candump can0 > ~/tmp/log.txt &'
-        - 'timeout -s SIGINT $TIMEOUT cansequence -e -p'
+        - 'timeout -s SIGINT $TIMEOUT cansequence -e -p || True'
         - 'cat /proc/net/can/stats'
+        - 'ls -alh ~/tmp'
+        - 'lava-test-case canbus-stress-test --result pass'
