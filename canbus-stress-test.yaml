@@ -1,0 +1,22 @@
+metadata:
+    name: canbus-stress-test
+    format: "Lava-Test-Shell Test Definition 1.0"
+    description: "Canbus 12 hour stress test"
+    maintainer:
+        - tyler.baker@linaro.org
+    devices:
+        - beaglebone-black
+
+params:
+    DEVICE: /dev/sda1
+    TIMEOUT: 43200s
+
+run:
+    steps:
+        - 'mkdir -p ~/tmp'
+        - 'mkfs -F -t ext4 $DEVICE'
+        - 'mount $DEVICE ~/tmp/'
+        - 'cd ~/tmp/'
+        - 'candump can0 > ~/tmp/log.txt &'
+        - 'timeout -s SIGINT $TIMEOUT cansequence -e -p'
+        - 'cat /proc/net/can/stats'
