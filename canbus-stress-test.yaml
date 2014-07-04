@@ -1,7 +1,7 @@
 metadata:
     name: canbus-stress-test
     format: "Lava-Test-Shell Test Definition 1.0"
-    description: "Canbus 12 hour stress test"
+    description: "Canbus stress test (12 hour default)"
     maintainer:
         - tyler.baker@linaro.org
     devices:
