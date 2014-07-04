@@ -17,7 +17,7 @@ run:
         - 'mkfs -F -t ext4 $DEVICE'
         - 'mount $DEVICE ~/tmp/'
         - 'cd ~/tmp/'
-        - 'timeout -s SIGKILL $TIMEOUT candump can0 > ~/tmp/log.txt &'
+        - 'timeout -s SIGKILL $TIMEOUT candump can0 > ~/tmp/log.txt || true &'
         - 'timeout -s SIGINT $TIMEOUT cansequence -e -p || true'
         - 'umount -f $DEVICE'
         - 'cat /proc/net/can/stats'
