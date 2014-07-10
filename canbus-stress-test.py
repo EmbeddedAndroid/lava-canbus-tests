@@ -11,7 +11,8 @@ import time
 def canstats():
     cmd = 'cat /proc/net/can/stats'
     try:
-        subprocess.check_output(cmd, shell=True)
+        output = subprocess.check_output(cmd, shell=True)
+        print output
     except subprocess.CalledProcessError as e:
         print "ERROR!"
         print e
