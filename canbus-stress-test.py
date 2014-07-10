@@ -71,6 +71,7 @@ def main(timeout, device):
             print "Test finished!"
         else:
             canstats()
+            time.sleep(60)
     exit(0)
 
 if __name__ == '__main__':
