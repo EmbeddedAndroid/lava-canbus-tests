@@ -12,27 +12,8 @@ def canstats():
     cmd = 'cat /proc/net/can/stats'
     try:
         output = subprocess.check_output(cmd, shell=True)
+        print (time.strftime("%H:%M:%S"))
         print output
-    except subprocess.CalledProcessError as e:
-        print "ERROR!"
-        print e
-        exit(1)
-
-
-def cansequence(device):
-    cmd = 'cansequence -e -p > /dev/null &'
-    try:
-        subprocess.check_output(cmd, shell=True)
-    except subprocess.CalledProcessError as e:
-        print "ERROR!"
-        print e
-        exit(1)
-
-
-def canbus_dump(device):
-    cmd = 'candump can0 > ~/tmp/log.txt &'
-    try:
-        subprocess.check_output(cmd, shell=True)
     except subprocess.CalledProcessError as e:
         print "ERROR!"
         print e
@@ -64,11 +45,13 @@ def main(timeout, device):
     run = True
     stop = time.time() + float(timeout)
     mount_device(device)
-    canbus_dump(device)
-    cansequence(device)
+    commands = ['candump can0 > ~/tmp/log.txt', 'cansequence -e -p > /dev/null']
+    processes = [subprocess.Popen(cmd, shell=True) for cmd in commands]
     while run:
         if stop <= time.time():
             run = False
+            for p in processes:
+                p.kill()
             print "Test finished!"
         else:
             canstats()
