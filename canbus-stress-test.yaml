@@ -9,17 +9,13 @@ metadata:
 
 params:
     DEVICE: /dev/sda1
-    TIMEOUT: 43200s
+    TIMEOUT: 43200
+
+install:
+    deps:
+        - python
 
 run:
     steps:
-        - 'mkdir -p ~/tmp'
-        - 'mkfs -F -t ext4 $DEVICE'
-        - 'mount $DEVICE ~/tmp/'
-        - 'cd ~/tmp/'
-        - 'timeout -s SIGKILL $TIMEOUT candump can0 > ~/tmp/log.txt || true &'
-        - 'timeout -s SIGINT $TIMEOUT cansequence -e -p || true'
-        - 'umount -f $DEVICE'
-        - 'cat /proc/net/can/stats'
-        - 'ls -alh ~/tmp | grep log.txt'
+        - 'python canbus-stress-test.py $TIMEOUT $DEVICE'
         - 'lava-test-case canbus-stress-test --result pass'
