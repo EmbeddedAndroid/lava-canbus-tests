@@ -15,7 +15,7 @@ def canstats():
         print (time.strftime("%H:%M:%S"))
         print output
     except subprocess.CalledProcessError as e:
-        print "ERROR!"
+        print "Test error!"
         print e
         exit(1)
 
@@ -25,7 +25,7 @@ def umount_device(device):
     try:
         subprocess.check_output(cmd, shell=True)
     except subprocess.CalledProcessError as e:
-        print "ERROR!"
+        print "Test error!"
         print e
         exit(1)
 
@@ -36,7 +36,7 @@ def mount_device(device):
         for cmd in cmds:
             subprocess.check_output(cmd, shell=True)
     except subprocess.CalledProcessError as e:
-        print "ERROR!"
+        print "Test error!"
         print e
         exit(1)
 
@@ -54,8 +54,8 @@ def main(timeout, device):
                 p.kill()
             print "Test finished!"
         else:
-            canstats()
             time.sleep(60)
+            canstats()
     exit(0)
 
 if __name__ == '__main__':
