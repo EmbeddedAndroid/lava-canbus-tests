@@ -56,6 +56,7 @@ def main(timeout, device):
                     os.killpg(p.pid, signal.SIGKILL)
                 except OSError:
                     p.terminate()
+            time.sleep(20)
             umount_device(device)
             print "Test finished!"
         else:
