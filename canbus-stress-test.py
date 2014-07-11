@@ -46,7 +46,7 @@ def main(timeout, device):
     run = True
     stop = time.time() + float(timeout)
     mount_device(device)
-    commands = ['candump can0 > ~/tmp/log.txt', 'cansequence -e -p > /dev/null']
+    commands = ['candump can0 > ~/tmp/log.txt &', 'cansequence -e -p > /dev/null &']
     processes = [subprocess.Popen(cmd, shell=True) for cmd in commands]
     while run:
         if stop <= time.time():
@@ -56,6 +56,8 @@ def main(timeout, device):
                     os.killpg(p.pid, signal.SIGKILL)
                 except OSError:
                     p.terminate()
+                    time.sleep(2)
+                    p.kill()
             time.sleep(20)
             umount_device(device)
             print "Test finished!"
