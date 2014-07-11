@@ -6,6 +6,8 @@
 import sys
 import subprocess
 import time
+import os
+import signal
 
 
 def canstats():
@@ -46,12 +48,15 @@ def main(timeout, device):
     stop = time.time() + float(timeout)
     mount_device(device)
     commands = ['candump can0 > ~/tmp/log.txt', 'cansequence -e -p > /dev/null']
-    processes = [subprocess.Popen(cmd, shell=True) for cmd in commands]
+    processes = [subprocess.Popen(cmd, shell=False) for cmd in commands]
     while run:
         if stop <= time.time():
             run = False
             for p in processes:
-                p.kill()
+                try:
+                    os.killpg(p.pid, signal.SIGKILL)
+                except OSError:
+                    p.kill()
             umount_device(device)
             print "Test finished!"
         else:
