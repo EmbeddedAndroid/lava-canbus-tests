@@ -48,7 +48,7 @@ def main(timeout, device):
     stop = time.time() + float(timeout)
     mount_device(device)
     commands = ['candump can0 > ~/tmp/log.txt', 'cansequence -e -p > /dev/null']
-    processes = [subprocess.Popen(cmd, shell=False) for cmd in commands]
+    processes = [subprocess.Popen(cmd, shell=True) for cmd in commands]
     while run:
         if stop <= time.time():
             run = False
