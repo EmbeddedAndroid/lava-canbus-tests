@@ -52,6 +52,7 @@ def main(timeout, device):
             run = False
             for p in processes:
                 p.kill()
+            umount_device(device)
             print "Test finished!"
         else:
             time.sleep(60)
