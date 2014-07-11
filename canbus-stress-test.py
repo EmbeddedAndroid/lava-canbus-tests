@@ -27,9 +27,8 @@ def umount_device(device):
     try:
         subprocess.check_output(cmd, shell=True)
     except subprocess.CalledProcessError as e:
-        print "Test error!"
+        print "Mount error!"
         print e
-        exit(1)
 
 
 def mount_device(device):
@@ -56,7 +55,7 @@ def main(timeout, device):
                 try:
                     os.killpg(p.pid, signal.SIGKILL)
                 except OSError:
-                    p.kill()
+                    p.terminate()
             umount_device(device)
             print "Test finished!"
         else:
