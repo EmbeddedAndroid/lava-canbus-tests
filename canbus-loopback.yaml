@@ -15,3 +15,4 @@ run:
         - 'lava-test-case down-can0 --shell canconfig can0 stop'
         - 'lava-test-case loopback-can0 --shell canconfig can0 bitrate $BITRATE ctrlmode triple-sampling on loopback on'
         - 'lava-test-case start-can0 --shell canconfig can0 start'
+        - 'lava-test-case set-txqueuelen-can0 --shell ifconfig can0 txqueuelen 10000'
